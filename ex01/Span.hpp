@@ -4,9 +4,10 @@
 #include <exception>
 #include <iostream>
 #include <vector>
-#include <iterator>
+#include <algorithm>
+#include <limits>
+#include <cstdlib>
 
-template <typename T>
 class Span {
 
     private : 
@@ -15,25 +16,37 @@ class Span {
 
     public :
 
-        Span(unsigned int n) : _size(n) {
-            
-        }
+        Span(unsigned int n);
         ~Span();
         Span(const Span &copy);
         Span &operator=(const Span &copy);
 
-        void addNumbers(int num);
+        void addNumber(int num);
         int shortestSpan() const;
         int longestSpan() const;
 
+        template <typename Iterator>
+        void addNumbers(Iterator begin, Iterator end) {
 
-    class SpanNumberError : public std::exception {
+            size_t distance = std::distance(begin, end);
+            if (_tab.size() + distance > _size)
+                throw TabIsFull();
+            _tab.insert(_tab.end(), begin, end);
+        }
+
+    class TabIsFull : public std::exception {
         public :
-            virtual const *what() const throw() {
-                return "Error with the arguments";
+            virtual const char *what() const throw() {
+                return "Tab of ints is already full";
+            }
+    };
+
+    class NotEnoughInt : public std::exception {
+        public :
+            virtual const char *what() const throw() {
+                return "Not enough int in tab";
             }
     };
 } ;
-
 
 #endif

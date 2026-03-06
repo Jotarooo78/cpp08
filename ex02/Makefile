@@ -1,10 +1,10 @@
 # ================== CONFIGURATION ================== #
-NAME      := Span
+NAME      := MutantStack
 CC        := c++
 CFLAGS    := -Wall -Wextra -Werror -g -std=c++98
 OPTIONS   := -I includes
 
-SRC_FILES := main.cpp Span.cpp
+SRC_FILES := main.cpp
 OBJ_DIR   := obj
 SRC   := $(SRC_FILES)
 OBJS  := $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.cpp=.o))

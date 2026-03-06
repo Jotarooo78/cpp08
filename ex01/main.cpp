@@ -3,34 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: armosnie <armosnie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: armaunito <armaunito@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/04 15:34:43 by armosnie          #+#    #+#             */
-/*   Updated: 2026/03/05 14:42:39 by armosnie         ###   ########.fr       */
+/*   Created: 2026/03/06 15:22:36 by armaunito         #+#    #+#             */
+/*   Updated: 2026/03/06 15:22:48 by armaunito        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "easyfind.hpp"
-#include <vector>
-#include <cstdlib>
+#include "Span.hpp"
+#include <ctime>
 
-int main(int argc, char **argv) {
+int main() {
+    try {
+        std::cout << "TEST1\n" << std::endl;
+        Span sp1(10);
+        
+        std::vector<int> vec;
+        vec.push_back(1);
+        vec.push_back(2);
+        vec.push_back(3);
+        vec.push_back(4);
+        vec.push_back(5);
+        
+        sp1.addNumbers(vec.begin(), vec.end());
+        std::cout << "Shortest span: " << sp1.shortestSpan() << std::endl;
+        std::cout << "Longest span: " << sp1.longestSpan() << std::endl;
 
-    if (argc > 2) {
-        std::vector<int> tab;
-        int target = atoi(argv[argc - 1]);
+        std::cout << "\nTEST2\n" << std::endl;
+
+        std::vector<int> vec2;
+        Span sp2(10000);
+        std::srand(std::time(NULL));
         
-        
-        for (int i = 1; i < argc - 1; i++) {
-            tab.push_back(atoi(argv[i]));
+        for (int i = 0; i < 10000; ++i) {
+            vec2.push_back(rand());
         }
-        try {
-            std::vector<int>::iterator it = easyfind(tab, target);
-            std::cout << "number " << *it << " found !" << std::endl;
-        }
-        catch (const std::exception &e) {
-            std::cout << "Error : " << e.what() << std::endl;
-        }
+        sp2.addNumbers(vec2.begin(), vec2.end());
+        std::cout << "Shortest span: " << sp2.shortestSpan() << std::endl;
+        std::cout << "Longest span: " << sp2.longestSpan() << std::endl;
+
+    } catch (const std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
     }
+    
     return 0;
 }
